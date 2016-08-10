@@ -34,30 +34,18 @@ int main(){
     for(int i=0; i<num_data; i++){
         /* For each data set */
         double invest = 0; //Initial Investment
+        double Best_Balance = 0;
         int years = 0, num_operations = 0;
-        vector<oper> oper_data;
         readfile>>invest;
         readfile>>years;
         readfile>>num_operations;
 
         
         for(int j = 0; j<num_operations; j++){
-            /**
-            
-                TODO:
-                - Use Vector to store the data of each Operation
-                - The question is what is the difference of using pushback or just make a element
-                - Am I supposed to pass the whole struct to the vector 
-                - 
-
-
-                - Make a Instance of the struct and store every thing in there, then pushback 
-                it to the vector.
-             */
             oper temp_data;
             readfile>>temp_data.compound>>temp_data.rates>>temp_data.fee;
             temp_data.fin_balance = invest;
-            if(emp_data.compound){
+            if(temp_data.compound){
                 for(int k = 0; k<years; k++)
                     temp_data.fin_balance = temp_data.fin_balance+(invest*temp_data.rates) - temp_data.fee;
                 }
@@ -66,22 +54,14 @@ int main(){
                     temp_data.fin_balance = temp_data.fin_balance*temp_data.rates - temp_data.fee;
             }
             //the final balance will saved into fin_balance
-
-            /* push into vector */
-            oper_data.pushback(temp_data);
-            
+            /* Get the maximum */
+            if(temp_data.fin_balance > Best_Balance)
+                Best_Balance = temp_data.fin_balance;  
         }
         /* Compare all the investment method to get that will maximize the profit */
-        
-        
+        cout<<dec<<showbase<<Best_Balance<<endl;
         
     }
-
-
-
-
     /* close file */
     readfile.close();
-    
-
 }
